@@ -17,7 +17,7 @@ sense.clear(purple)
 
 from pykafka import KafkaClient
 
-client = KafkaClient(hosts="192.168.0.161")
+client = KafkaClient(hosts="192.168.0.161,")
 client.topics
 topic = client.topics['bde']
 
