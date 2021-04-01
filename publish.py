@@ -21,10 +21,9 @@ while True:
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
     
     try:
-        p.produce("bde", "{0}".format(temperature), callback=acked)
+        p.produce("bde", key="temperature", value=temperature), callback=acked)
         p.poll(0.5)
 
     except KeyboardInterrupt:
         pass
-
-    p.flush(30)
+        p.flush(30)
