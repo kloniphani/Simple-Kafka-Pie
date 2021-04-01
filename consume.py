@@ -13,19 +13,13 @@ purple = (160, 32, 240)
 
 sense.set_pixel(4, 5, red)
 
-sense.clear(blue)
-
-from pykafka import KafkaClient
-
-client = KafkaClient(hosts="192.168.0.161:9092")
-client.topics
-topic = client.topics[b'bde']
+sense.clear(green)
 
 from kafka import KafkaConsumer
 from json import loads
 
 consumer = KafkaConsumer(
-    'numtest',
+    'bde',
      bootstrap_servers=['192.168.0.161:9092'],
      auto_offset_reset='earliest',
      enable_auto_commit=True,

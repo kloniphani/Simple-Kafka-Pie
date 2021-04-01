@@ -15,6 +15,7 @@ producer = KafkaProducer(bootstrap_servers=['192.168.0.161:9092'],
                          dumps(x).encode('utf-8'))
 
 for e in range(1000):
-    data = {'number' : e}
-    producer.send('numtest', value=data)
+    data = {'temperature' : temperature}
+    producer.send('bde', value=data)
     sleep(5)
+    print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
