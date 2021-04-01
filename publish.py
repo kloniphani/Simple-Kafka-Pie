@@ -16,6 +16,9 @@ producer = KafkaProducer(bootstrap_servers=['192.168.0.161:9092'],
 
 for e in range(1000):
     data = {'temperature' : temperature}
-    producer.send('bde', value=data)
+    try:
+        producer.send('bde', value=data)
+    except Exception as e: print(e)
+    
     sleep(5)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
