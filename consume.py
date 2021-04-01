@@ -1,4 +1,6 @@
 from sense_hat import SenseHat
+import time
+import sys
 
 sense = SenseHat()
 
