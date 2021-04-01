@@ -6,20 +6,16 @@ import time
 from confluent_kafka import Producer
 
 def acked(err, msg):
+    humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     if err is not None:
         print("Failed to deliver message: {0}: {1}"
               .format(msg.value(), err.str()))
     else:
-        pass
+          print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
 p = Producer({'bootstrap.servers': '192.168.0.161:9092'})
 
 while True:
-
-    humidity, temperature = Adafruit_DHT.read_retry(11, 4)
-
-    print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
-    
     try:
         p.produce("bde", key="temperature", value=temperature), callback=acked)
         p.poll(0.5)
