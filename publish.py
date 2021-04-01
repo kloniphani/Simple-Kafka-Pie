@@ -4,14 +4,17 @@ import Adafruit_DHT
 import time
 
 humidity, temperature = Adafruit_DHT.read_retry(11, 4)
+print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
-from pykafka import KafkaClient
+from time import sleep
+from json import dumps
+from kafka import KafkaProducer
 
-client = KafkaClient(hosts="192.168.0.161:9092")
-client.topics
-topic = client.topics[b'bde']
+producer = KafkaProducer(bootstrap_servers=['192.168.0.161:9092'],
+                         value_serializer=lambda x: 
+                         dumps(x).encode('utf-8'))
 
-with topic.get_sync_producer() as producer:
-    while True:
-        producer.produce(bytes("temperature:{0}".format(temperature)'utf-8'))
-        print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
+for e in range(1000):
+    data = {'number' : e}
+    producer.send('numtest', value=data)
+    sleep(5)
