@@ -12,7 +12,7 @@ def acked(err, msg):
     else:
         pass
 
-p = Producer({'bootstrap.servers': '192.168.74.140 :9092'})
+p = Producer({'bootstrap.servers': '192.168.0.161:9092'})
 
 while True:
 
