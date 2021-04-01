@@ -2,9 +2,14 @@
 import sys
 import Adafruit_DHT
 import time
-from pykafka import KafkaClient
 
 humidity, temperature = Adafruit_DHT.read_retry(11, 4)
+
+from pykafka import KafkaClient
+
+client = KafkaClient(hosts="192.168.0.161")
+client.topics
+topic = client.topics['bde']
 
 with topic.get_sync_producer() as producer:
     while True:
