@@ -44,7 +44,7 @@ class BMP180(object):
 	def _read_u16(self,cmd):
 		MSB = self._bus.read_byte_data(self._address,cmd)
 		LSB = self._bus.read_byte_data(self._address,cmd+1)
-		return (MSB << 8) + LSB
+		return (MSB	<< 8) + LSB
 
 	def _read_s16(self,cmd):
 		result = self._read_u16(cmd)
@@ -91,7 +91,7 @@ class BMP180(object):
 		MSB = self._read_byte(BMP180_PRESSUREDATA)
 		LSB = self._read_byte(BMP180_PRESSUREDATA+1)
 		XLSB = self._read_byte(BMP180_PRESSUREDATA+2)
-		raw = (MSB << 16) + (LSB << 8) + XLSB) >> (8 - self._mode)
+		raw = ((MSB << 16) + (LSB << 8) + XLSB) >> (8 - self._mode)
 		return raw
 
 	def read_temperature(self):
@@ -101,9 +101,9 @@ class BMP180(object):
 		# UT = 27898
 		# Calculations below are taken straight from section 3.5 of the datasheet.
 		X1 = ((UT - self.cal_AC6) * self.cal_AC5) >> 15
-		X2 = (self.cal_MC << 11.0) / (X1 + self.cal_MD)
+		X2 = (self.cal_MC << 11) / (X1 + self.cal_MD)
 		B5 = X1 + X2
-		temp = ((B5 + 8) >> 4) / 10
+		temp = ((B5 + 8) >> 4) / 10.0
 		return temp
 
 	def read_pressure(self):
