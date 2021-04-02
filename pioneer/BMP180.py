@@ -100,7 +100,7 @@ class BMP180(object):
 		# Datasheet value for debugging:
 		# UT = 27898
 		# Calculations below are taken straight from section 3.5 of the datasheet.
-		X1 = ((UT - self.cal_AC6) * self.cal_AC5) >> 15.0
+		X1 = ((UT - self.cal_AC6) * self.cal_AC5) >> 15
 		X2 = (self.cal_MC << 11.0) / (X1 + self.cal_MD)
 		B5 = X1 + X2
 		temp = ((B5 + 8) >> 4) / 10
