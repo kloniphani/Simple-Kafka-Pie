@@ -103,7 +103,7 @@ class BMP180(object):
 		X1 = ((UT - self.cal_AC6) * self.cal_AC5) >> 15
 		X2 = (self.cal_MC << 11) / (X1 + self.cal_MD)
 		B5 = X1 + X2
-		temp = ((B5 + 8) >> 4.0) // 10.0
+		temp = ((B5 + 8) >> 4) // 10.0
 		return temp
 
 	def read_pressure(self):
