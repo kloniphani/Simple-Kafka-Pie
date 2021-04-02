@@ -43,7 +43,7 @@ while True:
 
     bus.write_byte(address,A3)	
     value = bus.read_byte(address)
-    print("AOUT:%1.3f".format(value*3.3/255))
+    print("AOUT:{0:0.1f}".format(value*3.3/255))
 
 
 
