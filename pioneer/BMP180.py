@@ -44,7 +44,7 @@ class BMP180(object):
 	def _read_u16(self,cmd):
 		MSB = self._bus.read_byte_data(self._address,cmd)
 		LSB = self._bus.read_byte_data(self._address,cmd+1)
-		return (MSB	<< 8.0) + LSB
+		return (float(MSB) << 8.0) + LSB
 
 	def _read_s16(self,cmd):
 		result = self._read_u16(cmd)
