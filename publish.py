@@ -44,7 +44,8 @@ while True:
 
     bus.write_byte(address,A2)	
     value = bus.read_byte(address)
-    print("AOUT:\t{0:0.1f}".format(value))
+    value = bus.read_byte(A2)
+    print("A2:\t{0:0.1f}".format(value))
     time.sleep(0.1)
 
 from time import sleep
