@@ -136,8 +136,8 @@ class BMP180(object):
 		else:
 			p = (B7 / B4) * 2
 		X1 = (int(p) >> 8) * (int(p) >> 8)
-		X1 = (X1 * 3038) >> 16
-		X2 = (-7357 * p) >> 16
+		X1 = int(X1 * 3038) >> 16
+		X2 = int(-7357 * p) >> 16
 
 		p = p + (int(X1 + X2 + 3791) >> 4)
 		return p
