@@ -13,7 +13,7 @@ while True:
     altitude = bmp.read_altitude()
 
     print("Temperature: {0:0.1f} C".format(temp))
-	print("Pressure:    {0:0.1f} hPa".format((pressure / 100.0)))
+	print("Pressure:    {0:0.1f} hPa".format(pressure / 100.0))
 	print("Altitude:    {0:0.1f}\n".format(altitude))
 
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
