@@ -8,13 +8,6 @@ from pioneer.BMP180 import BMP180
 
 bmp = BMP180()
 
-address = 0x48
-A0 = 0x40
-A1 = 0x41
-A2 = 0xA2
-A3 = 0xA3
-bus = smbus.SMBus(1)
-
 #GPIO SETUP
 soundSensor = 17
 GPIO.setmode(GPIO.BCM)
@@ -29,6 +22,14 @@ def callback(soundSensor):
 GPIO.add_event_detect(soundSensor, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
 GPIO.add_event_callback(soundSensor, callback)  # assign function to GPIO PIN, Run function on change
 
+
+address = 0x48
+A0 = 0x40
+A1 = 0x41
+A2 = 0xA2
+A3 = 0xA3
+bus = smbus.SMBus(1)
+
 while True:
     temp = bmp.read_temperature()
     pressure = bmp.read_pressure()
@@ -41,11 +42,10 @@ while True:
     humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
-    bus.write_byte(address,A3)	
+    bus.write_byte(address,A2)	
     value = bus.read_byte(address)
-    print("AOUT:{0:0.1f}".format(value*3.3/255))
-
-
+    print("AOUT:\t{0:0.1f}".format(value*3.3/255))
+    time.sleep(0.1)
 
 from time import sleep
 from json import dumps
