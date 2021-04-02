@@ -5,7 +5,6 @@ import time
 from pioneer.BMP180 import BMP180
 
 bmp = BMP180()
-humidity, temperature = Adafruit_DHT.read_retry(11, 4)
 
 while True:
     temp = bmp.read_temperature()
@@ -15,6 +14,8 @@ while True:
     print("Temperature: {0:0.1f} C".format(temp))
     print("Pressure:    {0:0.1f} hPa".format(pressure / 100.0))
     print("Altitude:    {0:0.1f}\n".format(altitude))
+
+    humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
 from time import sleep
