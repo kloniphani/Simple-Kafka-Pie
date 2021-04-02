@@ -74,7 +74,7 @@ class BMP180(object):
 		time.sleep(0.005)  # Wait 5ms
 		MSB = self._read_byte(BMP180_TEMPDATA)
 		LSB = self._read_byte(BMP180_TEMPDATA+1)
-		raw = (MSB << 8.0) + LSB
+		raw = (float(MSB) << 8.0) + LSB
 		return raw
 			
 	def read_raw_pressure(self):
@@ -91,7 +91,7 @@ class BMP180(object):
 		MSB = self._read_byte(BMP180_PRESSUREDATA)
 		LSB = self._read_byte(BMP180_PRESSUREDATA+1)
 		XLSB = self._read_byte(BMP180_PRESSUREDATA+2)
-		raw = ((MSB << 16.0) + (LSB << 8.0) + XLSB) >> (8.0 - self._mode)
+		raw = ((float(MSB) << 16.0) + (float(LSB) << 8.0) + float(XLSB)) >> (8.0 - self._mode)
 		return raw
 
 	def read_temperature(self):
