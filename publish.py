@@ -24,10 +24,9 @@ GPIO.add_event_callback(soundSensor, callback)  # assign function to GPIO PIN, R
 
 
 address = 0x48
-A0 = 0x40
-A1 = 0x41
-A2 = 0xA2
-A3 = 0xA3
+cmd = 0x40
+value = 0
+
 bus = smbus.SMBus(1)
 
 while True:
@@ -42,11 +41,11 @@ while True:
     humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
-    bus.write_byte(address,A2)	
-    value = bus.read_byte(address)
-    value = bus.read_byte_data(address)
-    print("A2:\t{0:0.1f}".format(value))
-    time.sleep(0.1)
+	bus.write_byte_data(address,cmd,value)
+	value += 1
+	if value == 256:
+		value =0
+	print("AOUT:{0:0.1f}".format(%value))
 
 from time import sleep
 from json import dumps
