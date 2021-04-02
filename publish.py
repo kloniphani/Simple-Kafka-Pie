@@ -2,10 +2,18 @@
 import sys
 import Adafruit_DHT
 import time
+import smbus
 import RPi.GPIO as GPIO
 from pioneer.BMP180 import BMP180
 
 bmp = BMP180()
+
+address = 0x48
+A0 = 0x40
+A1 = 0x41
+A2 = 0xA2
+A3 = 0xA3
+bus = smbus.SMBus(1)
 
 #GPIO SETUP
 soundSensor = 17
@@ -32,6 +40,12 @@ while True:
 
     humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
+
+    bus.write_byte(address,A3)	
+    value = bus.read_byte(address)
+    print("AOUT:%1.3f".format(value*3.3/255))
+
+
 
 from time import sleep
 from json import dumps
