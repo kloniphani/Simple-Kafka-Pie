@@ -27,6 +27,9 @@ address = 0x48
 cmd = 0x40
 value = 0
 
+reg_temp = 0x00
+reg_config = 0x01
+
 bus = smbus.SMBus(1)
 
 while True:
@@ -41,10 +44,7 @@ while True:
     humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
-    bus.write_byte_data(address,cmd,value)
-    value += 1
-    if value == 256:
-        value =0
+    value  = bus.read_i2c_block_data(address, reg_temp, 2)
     print("AOUT:{0:0.1f}".format(%value))
 
 from time import sleep
