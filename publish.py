@@ -20,8 +20,8 @@ def callback(soundSensor):
         else:
                 print("Sound Detected!")
 
-GPIO.add_event_detect(soundSensor, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
-GPIO.add_event_callback(soundSensor, callback)  # assign function to GPIO PIN, Run function on change
+#GPIO.add_event_detect(soundSensor, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
+#GPIO.add_event_callback(soundSensor, callback)  # assign function to GPIO PIN, Run function on change
 
 import paho.mqtt.client as mqtt
 
