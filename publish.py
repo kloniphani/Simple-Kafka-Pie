@@ -65,9 +65,8 @@ while True:
     humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
-
-# publish "Hello" to the topic "my/test/topic"
-client.publish("iot/kodiak/topic", "Hello")
+    # publish "Hello" to the topic "my/test/topic"
+    client.publish("iot/kodiak/topic", "Hello")
 
 # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
 client.loop_forever()
