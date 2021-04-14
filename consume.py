@@ -39,24 +39,24 @@ def on_message(client, userdata, msg):
             for i in range(8):
                 sense.set_pixel(0, i,red)
                 sense.set_pixel(1, i,red)
-                sleep(0.5)
+                time.sleep(0.5)
         elif float(msg.payload.decode("utf-8")) > 10:
             for i in range(8):
                 sense.set_pixel(0, i,orange)
                 sense.set_pixel(1, i,orange)
-                sleep(0.5)
+                time.sleep(0.5)
         else:
             for i in range(8):
                 sense.set_pixel(0, i,yellow)
                 sense.set_pixel(1, i,yellow)
-                sleep(0.5)
+                time.sleep(0.5)
 
     # pressure
     if( msg.topic == topics[1]):
         for i in range(8):
             sense.set_pixel(2, i,purple)
             sense.set_pixel(3, i,purple)
-            sleep(0.5)
+            time.sleep(0.5)
 
     # altitude
     if( msg.topic == topics[2]):
@@ -64,12 +64,12 @@ def on_message(client, userdata, msg):
             for i in range(8):
                 sense.set_pixel(4, i,green)
                 sense.set_pixel(5, i,green)
-                sleep(0.5)
+                time.sleep(0.5)
         else:
             for i in range(8):
                 sense.set_pixel(4, i,red)
                 sense.set_pixel(5, i,red)
-                sleep(0.5)
+                time.sleep(0.5)
 
     # humidity
     if( msg.topic == topics[3]):
@@ -77,22 +77,22 @@ def on_message(client, userdata, msg):
             for i in range(8):
                 sense.set_pixel(6, i,green)
                 sense.set_pixel(7, i,green)
-                sleep(0.5)
+                time.sleep(0.5)
         elif float(msg.payload.decode("utf-8")) > 50:
             for i in range(8):
                 sense.set_pixel(6, i,yellow)
                 sense.set_pixel(7, i,yellow)
-                sleep(0.5)
+                time.sleep(0.5)
         elif float(msg.payload.decode("utf-8")) > 25:
             for i in range(8):
                 sense.set_pixel(6, i,orange)
                 sense.set_pixel(7, i,orange)
-                sleep(0.5)
+                time.sleep(0.5)
         else:
             for i in range(8):
                 sense.set_pixel(6, i, red)
                 sense.set_pixel(7, i, red)
-                sleep(0.5)
+                time.sleep(0.5)
 
 
 # create the client
