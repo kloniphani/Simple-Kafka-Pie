@@ -33,6 +33,8 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     print("Received message: " + msg.topic + " -> " + msg.payload.decode("utf-8"))
     sense_light = []
+
+    # temperature
     if( msg.topic == topics[0]):
         if float(msg.payload.decode("utf-8")) >= 25:
             for i in range(16):
@@ -42,11 +44,42 @@ def on_message(client, userdata, msg):
                 sense_light.append(orange)
         else:
             for i in range(16):
-                sense_light.append(blue)
+                sense_light.append(yellow)
+
+
+    # pressure
+    if( msg.topic == topics[0]):
+        for i in range(16):
+            sense_light.append(purple)
+
+    # altitude
+    if( msg.topic == topics[0]):
+        if float(msg.payload.decode("utf-8")) >= 0:
+            for i in range(16):
+                sense_light.append(green)
+        else:
+            for i in range(16):
+                sense_light.append(red)
+
+    # humidity
+    if( msg.topic == topics[0]):
+        if float(msg.payload.decode("utf-8")) >= 75:
+            for i in range(16):
+                sense_light.append(green)
+        elif float(msg.payload.decode("utf-8")) > 50:
+            for i in range(16):
+                sense_light.append(yellow)
+        elif float(msg.payload.decode("utf-8")) > 25:
+            for i in range(16):
+                sense_light.append(orange)
+        else:
+            for i in range(16):
+                sense_light.append(red)
+
 
     sense.set_pixel(sense_light)
 
-    
+
 # create the client
 client = mqtt.Client()
 client.on_connect = on_connect

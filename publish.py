@@ -72,7 +72,7 @@ while True:
 
     # publishing sensor data
     client.publish(topics[0], "{0}".format(temperature))
-    client.publish(topics[1], "{0}".format(pressure))
+    client.publish(topics[1], "{0}".format(pressure / 100))
     client.publish(topics[2], "{0}".format(altitude))
     client.publish(topics[3], "{0}".format(humidity))
 
