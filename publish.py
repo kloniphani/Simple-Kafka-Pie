@@ -6,7 +6,6 @@ import smbus
 import RPi.GPIO as GPIO
 from pioneer.BMP180 import BMP180
 
-import wiringpi2 as wiringpi
 
 bmp = BMP180()
 
@@ -24,6 +23,36 @@ def callback(soundSensor):
 GPIO.add_event_detect(soundSensor, GPIO.BOTH, bouncetime=300)  # let us know when the pin goes HIGH or LOW
 GPIO.add_event_callback(soundSensor, callback)  # assign function to GPIO PIN, Run function on change
 
+import paho.mqtt.client as mqtt
+
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        print("Connected successfully")
+    else:
+        print("Connect returned result code: " + str(rc))
+
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    print("Received message: " + msg.topic + " -> " + msg.payload.decode("utf-8"))
+
+# create the client
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
+
+# enable TLS
+client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLS)
+
+# set username and password
+client.username_pw_set("arush", "~Arush@01!")
+
+# connect to HiveMQ Cloud on port 8883
+client.connect("d01c03054d0643619521997778f15f5a.s1.eu.hivemq.cloud", 8883)
+
+# subscribe to the topic "my/test/topic"
+client.subscribe("iot/kodiak/topic")
+
 while True:
     temp = bmp.read_temperature()
     pressure = bmp.read_pressure()
@@ -36,26 +65,9 @@ while True:
     humidity, temperature = Adafruit_DHT.read_retry(11, 4)
     print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
 
-    wiringpi.wiringPiSetupGpio()  
-    wiringpi.pinMode(27, 0) # sets GPIO 27 to input
 
-    my_input = wiringpi.digitalRead(27)
-    print("Pin 27: {0:0.1f}".format(my_input))
+# publish "Hello" to the topic "my/test/topic"
+client.publish("iot/kodiak/topic", "Hello")
 
-
-from time import sleep
-from json import dumps
-from kafka import KafkaProducer
-
-producer = KafkaProducer(bootstrap_servers=['192.168.0.161:9092'],
-                         value_serializer=lambda x: 
-                         dumps(x).encode('utf-8'))
-
-for e in range(1000):
-    data = {'temperature' : temperature}
-    try:
-        producer.send('bde', value=data)
-    except Exception as e: print(e)
-    
-    sleep(5)
-    print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
+# Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
+client.loop_forever()
