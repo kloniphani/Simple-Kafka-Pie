@@ -56,7 +56,9 @@ client.subscribe("iot/kodiak/topic")
 while True:
     # publish "Hello" to the topic "my/test/topic"
     client.publish("iot/kodiak/topic", "Hello")
+
+    # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
+    client.loop_forever()
+    
     time.sleep(10)
 
-# Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
-client.loop_forever()
