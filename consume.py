@@ -76,8 +76,9 @@ def on_message(client, userdata, msg):
             for i in range(16):
                 sense_light.append(red)
 
-
-    sense.set_pixel(sense_light)
+    if len(sense_light) >= 64:
+        sense.set_pixels(sense_light)
+        sense_light = []
 
 
 # create the client
