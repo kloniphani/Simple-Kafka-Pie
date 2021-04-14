@@ -37,13 +37,13 @@ client.on_message = on_message
 client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLS)
 
 # set username and password
-client.username_pw_set("arush", "<your-password>")
+client.username_pw_set("arush", "~Arush@01!")
 
 # connect to HiveMQ Cloud on port 8883
 client.connect("d01c03054d0643619521997778f15f5a.s1.eu.hivemq.cloud", 8883)
 
 # subscribe to the topic "my/test/topic"
-client.subscribe("my/test/topic")
+client.subscribe("iot/kodiak/topic")
 
 # publish "Hello" to the topic "my/test/topic"
 client.publish("my/test/topic", "Hello")

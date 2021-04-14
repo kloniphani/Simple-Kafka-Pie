@@ -54,19 +54,9 @@ client.connect("d01c03054d0643619521997778f15f5a.s1.eu.hivemq.cloud", 8883)
 client.subscribe("iot/kodiak/topic")
 
 while True:
-    temp = bmp.read_temperature()
-    pressure = bmp.read_pressure()
-    altitude = bmp.read_altitude()
-
-    print("Temperature: {0:0.1f} C".format(temp))
-    print("Pressure:    {0:0.1f} hPa".format(pressure / 100.0))
-    print("Altitude:    {0:0.1f}\n".format(altitude))
-
-    humidity, temperature = Adafruit_DHT.read_retry(11, 4)
-    print("Temp: {0:0.1f} C  Humidity: {1:0.1f} %".format(temperature, humidity))
-
     # publish "Hello" to the topic "my/test/topic"
     client.publish("iot/kodiak/topic", "Hello")
+    time.sleep(10)
 
 # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
 client.loop_forever()
