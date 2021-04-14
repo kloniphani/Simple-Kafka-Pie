@@ -24,6 +24,7 @@ def callback(soundSensor):
 #GPIO.add_event_callback(soundSensor, callback)  # assign function to GPIO PIN, Run function on change
 
 import paho.mqtt.client as mqtt
+import paho.mqtt.publish as publish
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -50,15 +51,30 @@ client.username_pw_set("arush", "~Arush@01!")
 # connect to HiveMQ Cloud on port 8883
 client.connect("d01c03054d0643619521997778f15f5a.s1.eu.hivemq.cloud", 8883)
 
-# subscribe to the topic "my/test/topic"
-client.subscribe("iot/kodiak/topic")
+# subscribe to the topics"
+topics = ["iot/kodiak/temperature",
+    "iot/kodiak/pressure",
+    "iot/kodiak/altitude",
+    "iot/kodiak/humidity"]
+
+for topic in topics:
+    client.subscribe(topic)
+
+client.loop_start()
 
 while True:
-    # publish "Hello" to the topic "my/test/topic"
-    client.publish("iot/kodiak/topic", "Hello")
+    # reading sensor data
+    temp = bmp.read_temperature()
+    pressure = bmp.read_pressure()
+    altitude = bmp.read_altitude()
 
-    # Blocking call that processes network traffic, dispatches callbacks and handles reconnecting.
-    client.loop_forever()
-    
-    time.sleep(10)
+    humidity, temperature = Adafruit_DHT.read_retry(11, 4)
+
+    # publishing sensor data
+    client.publish(topics[0], "{0}".format(temperature))
+    client.publish(topics[1], "{0}".format(pressure))
+    client.publish(topics[2], "{0}".format(altitude))
+    client.publish(topics[3], "{0}".format(humidity))
+
+    time.sleep(2)
 
