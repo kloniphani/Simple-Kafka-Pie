@@ -75,6 +75,6 @@ with open('ibm-mq-ccdt.json', 'r') as connection_file:
         topic.pub("{0}".format(humidity))
         topic.close()
 
-        time.sleep(2)
+        time.sleep(20)
 
     qmgr.disconnect()
