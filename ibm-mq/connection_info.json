@@ -1,0 +1,13 @@
+{
+ "platform": "ibmmq-on-cloud",
+ "queueManagerName": "kodiak",
+ "hostname": "kodiak-d080.qm.eu-gb.mq.appdomain.cloud",
+ "listenerPort": 31660,
+ "logPort": 31748,
+ "applicationChannelName": "CLOUD.APP.SVRCONN",
+ "adminChannelName": "CLOUD.ADMIN.SVRCONN",
+ "deploymentLocation": "",
+ "webConsoleURL": "https://web-kodiak-d080.qm.eu-gb.mq.appdomain.cloud/ibmmq/console",
+ "messagingREST": "https://web-kodiak-d080.qm.eu-gb.mq.appdomain.cloud/ibmmq/rest/v1/messaging/qmgr/kodiak/queue/(queue_name)/message",
+ "adminREST": "https://web-kodiak-d080.qm.eu-gb.mq.appdomain.cloud/ibmmq/rest/v1/admin/qmgr/kodiak"
+}

@@ -1,0 +1,20 @@
+{
+  "channel": [
+    {
+      "name": "CLOUD.APP.SVRCONN",
+      "clientConnection": {
+        "connection": [
+          {
+            "host": "kodiak-d080.qm.eu-gb.mq.appdomain.cloud",
+            "port": 31660
+          }
+        ],
+        "queueManager": "kodiak"
+      },
+      "transmissionSecurity": {
+        "cipherSpecification": "ANY_TLS12_OR_HIGHER"
+      },
+      "type": "clientConnection"
+    }
+  ]
+}
